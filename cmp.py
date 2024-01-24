@@ -2,11 +2,11 @@ import json
 import urllib
 from urllib.request import urlopen
 
-strGvl = "https://vendor-list.consensu.org/v3/vendor-list.json"
-f = urlopen(strGvl).read()
-dictGvl = json.loads(f)
-dictVendors = dictGvl['vendors']
-#return the total number of vendors in the GVL
+strCmp = "https://cmp-list.consensu.org/v2/cmp-list.json"
+f = urlopen(strCmp).read()
+dictCmp = json.loads(f)
+dictVendors = dictCmp['cmps']
+#return the total number of vendors in the Cmp
 print("Total numbers of vendors: ")
 print(len(dictVendors))
 
