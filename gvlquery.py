@@ -44,10 +44,20 @@ print("Total with special purposes only: ", cnt)
 
 cnt = 0
 for x in dictVendors:
-    if len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
+    if len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with LI and special purposes: ", cnt)
+
+# The number of Vendors that have declared at least one purpose based on LI + at least one SP 
+# but no consent purpose (those will still have ambiguity in their signalling after the update)
+
+cnt = 0
+for x in dictVendors:
+    if len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
+     cnt += 1
+     # print("id: " + x +  " name: " + dictVendors[x]['name'])
+print("Total with LI and special purposes but no purpose consent: ", cnt)
 
 # the number of Vendors that have declared only purposes based on consent (no LI) + at least one SP 
 # (those will have the signalling ambiguity removed with the upcoming update to the library)
@@ -58,6 +68,15 @@ for x in dictVendors:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with only purposes consent and special purposes: ", cnt)
+
+# the number of Vendors that have declared at least one SP 
+
+cnt = 0
+for x in dictVendors:
+    if len(dictVendors[x]['specialPurposes']) > 0:
+     cnt += 1
+     # print("id: " + x +  " name: " + dictVendors[x]['name'])
+print("Total with special purposes: ", cnt)
 
 print("Done with GVL data.")
 
