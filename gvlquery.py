@@ -19,6 +19,7 @@ import re
 strGvl = "https://vendor-list.consensu.org/v3/vendor-list.json"
 strAvi = "https://vendor-list.consensu.org/v2/additional-vendor-information-list.json"
 # strGvl = "https://vendor-list.consensu.org/v2/archives/vendor-list-v51.json" # use to test the tcfapi tests
+# strGvl = "https://vendor-list.consensu.org/v3/archives/vendor-list-v86.json" # end of 2024
 gvlf = urlopen(strGvl).read()
 dictGvl = json.loads(gvlf)
 dictVendors = dictGvl['vendors']
@@ -27,10 +28,12 @@ dictVendors = dictGvl['vendors']
 print("Date queries for GVL...")
 print("Date and time:", datetime.datetime.now())
 
-# return the header infor and total number of vendors in the GVL
-print("gvlSpecificationVersion: ", dictGvl['gvlSpecificationVersion'])
-print("vendorListVersion",  dictGvl['vendorListVersion'])
-print("Total numbers of vendors: ", len(dictVendors))
+# return the header info and total number of vendors in the GVL
+print("File used:", strGvl.rsplit('/', 1)[1])
+print("gvlSpecificationVersion:", dictGvl['gvlSpecificationVersion'])
+print("vendorListVersion:",  dictGvl['vendorListVersion'])
+print("lastUpdated:", dictGvl['lastUpdated'])
+print("Total numbers of vendors:", len(dictVendors))
 
 cnt = 0
 for x in dictVendors:
@@ -77,6 +80,47 @@ for x in dictVendors:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with special purposes: ", cnt)
+
+# 
+# returns the number of vendors per purpose
+# 
+
+def find_element(arr, target):
+    try:
+        return arr.index(target)
+    except ValueError:
+        return -1
+
+print("***Number of vendors per purpose: ")
+def num_vendors_per_purpose(purpose_no):
+    cnt = 0
+    for x in dictVendors:
+        if len(dictVendors[x]['purposes']) != 0 and find_element(dictVendors[x]['purposes'], purpose_no) != -1:
+            cnt += 1
+    print("Vendors with purpose " + str(purpose_no) + ": " + str(cnt))
+
+for x in range(1, 12):
+    num_vendors_per_purpose(x)
+
+print("***Done with number of purposes by vendor")
+
+#
+# returns the number of vendors not using purpse 2,3,4 and 7
+#
+
+cnt = 0
+for x in dictVendors:
+    if len(dictVendors[x]['purposes']) != 0 \
+        and find_element(dictVendors[x]['purposes'], 2) == -1 \
+        and find_element(dictVendors[x]['purposes'], 3) == -1 \
+        and find_element(dictVendors[x]['purposes'], 4) == -1 \
+        and find_element(dictVendors[x]['purposes'], 7) == -1:
+        cnt += 1
+for x in dictVendors:
+    if len(dictVendors[x]['purposes']) == 0:
+        cnt += 1
+
+print("***Vendors that have not declared either Purpose 2,3,4 and 7: " + str(cnt))
 
 print("Done with GVL data.")
 
