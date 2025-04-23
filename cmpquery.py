@@ -15,8 +15,8 @@ from urllib.request import urlopen
 import datetime
 import re
 
-strCmp = "https://cmp-list.consensu.org/v2/cmp-list.json"
-# strCmp = "https://cmp-list.consensu.org/v2/archives/cmp-list.2024-12-26.json" # end of 2024
+# strCmp = "https://cmp-list.consensu.org/v2/cmp-list.json"
+strCmp = "https://cmp-list.consensu.org/v2/archives/cmp-list.2024-12-26.json" # end of 2024
 cmpf = urlopen(strCmp).read()
 dictCmp = json.loads(cmpf)
 dictCmps = dictCmp['cmps']
@@ -29,6 +29,12 @@ print("Date and time:", datetime.datetime.now())
 print("File used:", strCmp.rsplit('/', 1)[1])
 print("lastUpdated",  dictCmp['lastUpdated'])
 print("Total numbers of CMPs: ", len(dictCmps))
+
+cnt = 0
+for x in dictCmps:
+    if 'deletedDate' in dictCmps[x]:
+        cnt += 1
+print("Total operational CMPs:", len(dictCmps) - cnt)
 
 cnt = 0
 
@@ -49,7 +55,7 @@ x2 = 0
 x3 = 0
 
 for x in dictCmps:
-    if ('environments' in dictCmps[x]):
+    if ('environments' in dictCmps[x]) and 'deletedDate' not in dictCmps[x]:
         for y in dictCmps[x]['environments']:
             if y == 'Web':
                 cntWeb += 1

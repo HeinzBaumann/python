@@ -16,10 +16,10 @@ from urllib.request import urlopen
 import datetime
 import re
 
-strGvl = "https://vendor-list.consensu.org/v3/vendor-list.json"
+# strGvl = "https://vendor-list.consensu.org/v3/vendor-list.json"
 strAvi = "https://vendor-list.consensu.org/v2/additional-vendor-information-list.json"
 # strGvl = "https://vendor-list.consensu.org/v2/archives/vendor-list-v51.json" # use to test the tcfapi tests
-# strGvl = "https://vendor-list.consensu.org/v3/archives/vendor-list-v86.json" # end of 2024
+strGvl = "https://vendor-list.consensu.org/v3/archives/vendor-list-v86.json" # end of 2024
 gvlf = urlopen(strGvl).read()
 dictGvl = json.loads(gvlf)
 dictVendors = dictGvl['vendors']
@@ -37,6 +37,12 @@ print("Total numbers of vendors:", len(dictVendors))
 
 cnt = 0
 for x in dictVendors:
+    if 'deletedDate' in dictVendors[x]:
+        cnt += 1
+print("Total operational vendors:", len(dictVendors) - cnt)
+
+cnt = 0
+for x in dictVendors:
     if len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
@@ -47,7 +53,7 @@ print("Total with special purposes only: ", cnt)
 
 cnt = 0
 for x in dictVendors:
-    if len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
+    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with LI and special purposes: ", cnt)
@@ -57,7 +63,7 @@ print("Total with LI and special purposes: ", cnt)
 
 cnt = 0
 for x in dictVendors:
-    if len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
+    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with LI and special purposes but no purpose consent: ", cnt)
@@ -67,7 +73,7 @@ print("Total with LI and special purposes but no purpose consent: ", cnt)
 
 cnt = 0
 for x in dictVendors:
-    if len(dictVendors[x]['purposes']) > 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
+    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) > 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with only purposes consent and special purposes: ", cnt)
@@ -76,7 +82,7 @@ print("Total with only purposes consent and special purposes: ", cnt)
 
 cnt = 0
 for x in dictVendors:
-    if len(dictVendors[x]['specialPurposes']) > 0:
+    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['specialPurposes']) > 0:
      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
 print("Total with special purposes: ", cnt)
@@ -95,7 +101,7 @@ print("***Number of vendors per purpose: ")
 def num_vendors_per_purpose(purpose_no):
     cnt = 0
     for x in dictVendors:
-        if len(dictVendors[x]['purposes']) != 0 and find_element(dictVendors[x]['purposes'], purpose_no) != -1:
+        if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) != 0 and find_element(dictVendors[x]['purposes'], purpose_no) != -1:
             cnt += 1
     print("Vendors with purpose " + str(purpose_no) + ": " + str(cnt))
 
@@ -110,7 +116,7 @@ print("***Done with number of purposes by vendor")
 
 cnt = 0
 for x in dictVendors:
-    if len(dictVendors[x]['purposes']) != 0 \
+    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) != 0 \
         and find_element(dictVendors[x]['purposes'], 2) == -1 \
         and find_element(dictVendors[x]['purposes'], 3) == -1 \
         and find_element(dictVendors[x]['purposes'], 4) == -1 \

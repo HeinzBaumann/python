@@ -3,6 +3,8 @@ import urllib
 from urllib.request import urlopen
 
 strGvl = "https://vendor-list.consensu.org/v3/vendor-list.json"
+strTextGvl = "https://vendorlist-consensu-org.s3.eu-central-1.amazonaws.com/v2/ca/vendor-list.json"
+## strGvl = strTextGvl
 f = urlopen(strGvl).read()
 dictGvl = json.loads(f)
 dictVendors = dictGvl['vendors']
