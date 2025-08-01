@@ -1,0 +1,139 @@
+﻿Python Training
+
+
+Introduction:
+Setup on systems
+Installing Python
+https://www.python.org/downloads/
+Install the latest version for your OS
+Follow the instructions from the web page and from within the installer. (Ensure python exec folder is on your PATH, it should prompt you during the installation.)
+        Create a folder develop in your Documents folder. 
+Create a folder pythonTraining under develop. (This is the folder we will work in for this class.)
+        Start python3 by typing python3 in your develop/pythonTraining folder. If everything is correctly installed you should get a new prompt that looks like this: 
+Python 3.11.2 (main, Feb 16 2023, 02:51:42) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+Type exit() to exit out of the python interpreter.
+Your python installation is completed. If you don’t have that. Let me know when I am in the office on Monday 8/4 and I fix your setup. 
+
+
+Installing Visual Code
+Go to https://code.visualstudio.com/download and select the installation for your OS. Follow the instructions for the installation.
+Once the installation is complete you should have a new icon    for visual studio code on your desktop, application launch bar or application menu.
+When you launch visual studio code you should have something like this:
+  
+        
+You are all ready to go.
+
+
+Next you can open the folder side bar in Visual Studio Code and select Open Folder. Navigate to our pythonTraining folder and open that in VS Code. 
+
+
+Writing your first python code “Hello World”:
+Open a new file (menu File, New File)
+Name it “helloworld.py”. Follow UI prompts to create the file.
+VS Code will recognize the py extension as Python and will treat the file accordingly, check syntax errors, color codes and present help strings.
+Paste the following code into the file you created, save the file:
+# Hello world
+print("Hello world!")
+        
+On the menu bar navigate to View and select Terminal. The screen split and you have a terminal window on the bottom (it should be in your working directory that we opened earlier.)
+Execute the python script by typing in that terminal window: 
+Python3 helloworld.py <return>
+It should prompt Hello World!
+
+
+You are all set with your setup for the class.
+________________
+
+
+        Getting started / Basic syntax
+
+
+* How much Computer science know how do you have?
+* How much do you already know about Python?
+
+
+Useful places to get help;
+https://www.w3schools.com/python/python_intro.asp
+
+
+Preferred language by data scientists because it has easy syntax and many data query libraries built in for easy data analysis.
+Where to find help: 
+   * Google search (AI)
+   * https://www.w3schools.com/python
+
+
+        # comments
+        No semicolons to end a line, but it requires correct indentation! 
+        Variables
+                Unless in other language, python will automatically assign the correct type:
+                i = 0 # integer
+                i = “World” # string
+                i = 0.0 # float
+                Global vs. local variables
+
+
+        >>> use helloworld.py as the example for a simple condition
+
+
+Functions
+        Easy data mining we see later when we look at the json object.
+
+
+Coding directly in the python interpreter
+>>> i = 0
+>>> print(i)
+0
+>>> i = i + 2
+>>> print(i)
+2
+>>> if i < 2: 
+...     print("Hello")
+... elif i > 1:
+...     print("Bonjour")
+... 
+Bonjour
+>>> def myFunction(i):
+...     if i == 0:
+...             print("Hello")
+...     elif i == 1:
+...             print("Bonjour")
+...     else:
+...             print("Error")
+... 
+>>> myFunction(0)
+Hello
+>>> myFunction(1)
+Bonjour
+>>> myFunction(2)
+Error
+>>>
+
+
+myFirstFunction.py
+myFunction.py
+        myUserInput.py
+
+
+        List:
+is a collection which is ordered and changeable. Allows duplicate members.
+Tuple
+is a collection which is ordered and unchangeable. Allows duplicate members.
+Set 
+is a collection which is unordered, unchangeable*, and unindexed. No duplicate members.
+Dictionary 
+is a collection which is ordered** and changeable. No duplicate members.
+
+
+*Set items are unchangeable, but you can remove items and add new items.
+
+
+**As of Python version 3.7, dictionaries are ordered. In Python 3.6 and earlier, dictionaries are unordered.
+
+
+        
+Example using dictionaries 
+
+
+Example creating lists and count from GVL, CMP and AVI
