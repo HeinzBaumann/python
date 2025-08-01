@@ -58,6 +58,9 @@ def checkForElementsWo234(element1, element2):
 
 # vendor list storage
 outputVendorList = []
+outputVendorsDeclaringConsent = []
+outputVendorsDeclaringLI = []
+printOutput = []
 
 # - Total number of Vendors that declare purpose 7
 cnt = 0
@@ -79,6 +82,8 @@ print("***Vendors that have declared Purpose 7: " + str(cnt+cntLi) + " (LI purpo
 cnt = 0
 cntLi = 0
 outputVendorList.append("\nVendors that have declared Purpose 7 but none of the purposes 2,3,4:")
+outputVendorsDeclaringConsent.append("\nVendors that have declared Purpose 7 but none of the purposes 2,3,4 (consent):")
+outputVendorsDeclaringLI.append("\nVendors that have declared Purpose 7 but none of the purposes 2,3,4 (Legitimate Interest):")
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x]:
@@ -86,21 +91,33 @@ for x in dictVendors:
             if find_element(dictVendors[x]['purposes'], 7) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
             elif find_element(dictVendors[x]['legIntPurposes'], 7) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['purposes']) != 0:
             if find_element(dictVendors[x]['purposes'], 7) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['legIntPurposes']) != 0:
             if find_element(dictVendors[x]['legIntPurposes'], 7) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
+
+# Format the vendor output list
+printOutput.extend(outputVendorList)
+printOutput.extend(outputVendorsDeclaringConsent)
+printOutput.extend(outputVendorsDeclaringLI)
+outputVendorList = []
+outputVendorsDeclaringConsent = []
+outputVendorsDeclaringLI = []
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['legIntPurposes']) != 0 \
@@ -134,6 +151,8 @@ print("***Vendors that have declared Purpose 8: " + str(cnt+cntLi) + " (LI purpo
 cnt = 0
 cntLi = 0
 outputVendorList.append("\nVendors that have declared Purpose 8 but none of the purposes 2,3,4:")
+outputVendorsDeclaringConsent.append("\nVendors that have declared Purpose 8 but none of the purposes 2,3,4 (consent):")
+outputVendorsDeclaringLI.append("\nVendors that have declared Purpose 8 but none of the purposes 2,3,4 (Legitimate Interest):")
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x]:
@@ -141,21 +160,33 @@ for x in dictVendors:
             if find_element(dictVendors[x]['purposes'], 8) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
             elif find_element(dictVendors[x]['legIntPurposes'], 8) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['purposes']) != 0:
             if find_element(dictVendors[x]['purposes'], 8) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['legIntPurposes']) != 0:
             if find_element(dictVendors[x]['legIntPurposes'], 8) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
+
+# Format the vendor output list
+printOutput.extend(outputVendorList)
+printOutput.extend(outputVendorsDeclaringConsent)
+printOutput.extend(outputVendorsDeclaringLI)
+outputVendorList = []
+outputVendorsDeclaringConsent = []
+outputVendorsDeclaringLI = []
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['legIntPurposes']) != 0 \
@@ -189,6 +220,8 @@ print("***Vendors that have declared Purpose 9: " + str(cnt+cntLi) + " (LI purpo
 cnt = 0
 cntLi = 0
 outputVendorList.append("\nVendors that have declared Purpose 9 but none of the purposes 2,3,4:")
+outputVendorsDeclaringConsent.append("\nVendors that have declared Purpose 9 but none of the purposes 2,3,4 (consent):")
+outputVendorsDeclaringLI.append("\nVendors that have declared Purpose 9 but none of the purposes 2,3,4 (Legitimate Interest):")
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x]:
@@ -196,20 +229,24 @@ for x in dictVendors:
             if find_element(dictVendors[x]['purposes'], 9) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
             elif find_element(dictVendors[x]['legIntPurposes'], 9) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['purposes']) != 0:
             if find_element(dictVendors[x]['purposes'], 9) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['legIntPurposes']) != 0:
             if find_element(dictVendors[x]['legIntPurposes'], 9) != -1 \
             and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
 
 for x in dictVendors:
@@ -222,6 +259,14 @@ for x in dictVendors:
         and find_element(dictVendors[x]['legIntPurposes'], 3) == -1 \
         and find_element(dictVendors[x]['legIntPurposes'], 4) == -1:
         cntLi += 1
+
+# Format the vendor output list
+printOutput.extend(outputVendorList)
+printOutput.extend(outputVendorsDeclaringConsent)
+printOutput.extend(outputVendorsDeclaringLI)
+outputVendorList = []
+outputVendorsDeclaringConsent = []
+outputVendorsDeclaringLI = []
 
 print("***Vendors that have declared Purpose 9 but none of the purposes 2,3,4: " + str(cnt) + " (LI Purposes: " + str(cntLi) +")")
 
@@ -242,7 +287,9 @@ print("***Vendors that declare at least one of these three purposes 7, 8 or 9: "
 # total number of Vendors that declare at least one of these three purposes (7, 8 or 9) but none of the purposes 2,3,4
 cnt = 0
 cntLI = 0
-outputVendorList.append("\nVendors that declare at least one of these three purposes (7, 8 or 9) but none of the purposes 2,3,4")
+outputVendorList.append("\nVendors that declare at least one of these three purposes (7, 8 or 9) but none of the purposes 2,3,4:")
+outputVendorsDeclaringConsent.append("\nVendors that declare at least one of these three purposes (7, 8 or 9) but none of the purposes 2,3,4 (consent):")
+outputVendorsDeclaringLI.append("\nVendors that declare at least one of these three purposes (7, 8 or 9) but none of the purposes 2,3,4 (Legitimate Interest):")
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x]:
@@ -252,12 +299,14 @@ for x in dictVendors:
                 or find_element(dictVendors[x]['purposes'], 9) != -1 ) \
                 and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
             elif (find_element(dictVendors[x]['legIntPurposes'], 7) != -1 \
                 or find_element(dictVendors[x]['legIntPurposes'], 8) != -1 \
                 or find_element(dictVendors[x]['legIntPurposes'], 9) != -1 ) \
                 and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['purposes']) != 0:
             if (find_element(dictVendors[x]['purposes'], 7) != -1 \
@@ -265,6 +314,7 @@ for x in dictVendors:
                 or find_element(dictVendors[x]['purposes'], 9) != -1 ) \
                 and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringConsent.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
         elif len(dictVendors[x]['legIntPurposes']) != 0:
             if (find_element(dictVendors[x]['legIntPurposes'], 7) != -1 \
@@ -272,7 +322,16 @@ for x in dictVendors:
                 or find_element(dictVendors[x]['legIntPurposes'], 9) != -1 ) \
                 and checkForElementsWo234(dictVendors[x]['purposes'], dictVendors[x]['legIntPurposes']) == 1:
                 outputVendorList.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
+                outputVendorsDeclaringLI.append(str(dictVendors[x]['id']) + " " + dictVendors[x]['name'])
                 cnt += 1
+
+# Format the vendor output list
+printOutput.extend(outputVendorList)
+printOutput.extend(outputVendorsDeclaringConsent)
+printOutput.extend(outputVendorsDeclaringLI)
+outputVendorList = []
+outputVendorsDeclaringConsent = []
+outputVendorsDeclaringLI = []
 
 for x in dictVendors:
     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['legIntPurposes']) != 0 \
@@ -344,6 +403,6 @@ print("Total number of vendors delared Website, Campaign and/or Audience Analyti
 
 print("\nFinished with data mining.")
 print("\nDump vendor names...")
-for x in outputVendorList:
+for x in printOutput:
     print(x)
 print("\nJob done")
