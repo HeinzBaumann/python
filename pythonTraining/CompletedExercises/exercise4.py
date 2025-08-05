@@ -10,7 +10,7 @@
 #  { "lastName": "", "firstName": "", "title": "", 
 #    "started": "", "location": "", "management": False }
 
-myEmloyeeList = [{ "lastName": "Baumann", "firstName": "Heinz", "title": "Contractor", "started": "01/01/2023", "location": "home", "management": False},
+myEmployeeList = [{ "lastName": "Baumann", "firstName": "Heinz", "title": "Contractor", "started": "01/01/2023", "location": "home", "management": False},
                  { "lastName": "Vagner", "firstName": "Ninon", "title": "Director", "started": "01/01/2022", "location": "Brussels", "management": True},
                  { "lastName": "Siddaq", "firstName": "Hasan", "title": "Employee", "started": "01/01/2024", "location": "Brussels", "management": False},
                  { "lastName": "Gagliardi", "firstName": "Lucio", "title": "Contractor", "started": "05/01/2025", "location": "home", "management": False},
@@ -27,11 +27,11 @@ def sortFunc(e):
     return e["lastName"]
 
 # sort the employee list using the sort function as the key
-myEmloyeeList.sort(key=sortFunc)
+myEmployeeList.sort(key=sortFunc)
 
 # print out all emmployee data (name, first name, title) in CSV format
 outStr = "Last name,First name,Tite,Start Date,Location,Manager\n"
-for dictx in myEmloyeeList:
+for dictx in myEmployeeList:
     dictLength = len(dictx)
     i = 0
     for item in dictx:
@@ -63,26 +63,26 @@ def listManagers(myList):
     print(outStr, cnt)
     print(outStr2)
 
-listManagers(myEmloyeeList)
+listManagers(myEmployeeList)
 
 # calc percentage of contractores
 outStr = "Total contractors:"
 cnt = 0
 prcnt = 0
-for dictx in myEmloyeeList:
+for dictx in myEmployeeList:
     if dictx.get("title") == "Contractor":
         cnt += 1
-print(outStr, cnt, f'{pct(cnt, len(myEmloyeeList)):.2f}%','\n')
+print(outStr, cnt, f'{pct(cnt, len(myEmployeeList)):.2f}%','\n')
 
 # update one recored after a promotion
 outStr = "Updated one record after promotion: "
 cnt = 0
-for dictx in myEmloyeeList:
+for dictx in myEmployeeList:
     if dictx.get("lastName") == "Siddaq" and dictx.get("firstName") == "Hasan":
         dictx.update({"management": True})
         cnt += 1
 print(outStr, cnt)
 
-listManagers(myEmloyeeList)
+listManagers(myEmployeeList)
 
 print("All Done")

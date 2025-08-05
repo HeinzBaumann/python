@@ -3,6 +3,9 @@
 # Handling erros
 
 # this is a function
+# extend the function to take an argument and based on the given number print for 0 Hello, 
+# for 1 Bonjour, all other numbers Undefined
+# on the given numver 1 
 def myFunction(i):
     if i == 0:
         print("Hello")

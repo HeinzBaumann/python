@@ -74,6 +74,8 @@ def findElementInList(list, value):
 
 cnt = 0
 for x in dictVendors:
+    if 'deletedDate' in dictVendors[x]:
+        continue
     if len(dictVendors[x]['purposes']) > 0 and findElementInList(dictVendors[x]['purposes'], 11):
         cnt += 1
 
@@ -99,6 +101,8 @@ def dataRetentionGreaterThenGivenDays(dict, value):
         return False
     
 for x in dictVendors:
+    if 'deletedDate' in dictVendors[x]:
+        continue
     if dataRetentionGreaterThenGivenDays(dictVendors[x]['dataRetention'], iRetention):
        cnt += 1
        outStr = outStr + str(dictVendors[x]['id']) + ' ' + dictVendors[x]['name'] + '\n'
@@ -126,16 +130,25 @@ dictAvis = dictAvi['vendors']
 
 outStr = "Vendors who transfer data outside Europe:\nVendor\tTransfer Mechanism"
 cnt = 0
+deletedVendors = []
+for x in dictVendors:
+    if 'deletedDate' in dictVendors[x]:
+        deletedVendors.append(dictVendors[x]['id']) 
+# print(deletedVendors)
+
 for x in dictAvis:
+    if dictAvis[x]['id'] in deletedVendors:
+        continue
+
     if dictAvis[x]['internationalTransfers'] and dictAvis[x]['internationalTransfers'] == True:
         outStr = outStr + dictAvis[x]['name'] + '\t'
         cnt += 1
-        print(dictAvis[x]['transferMechanisms'])
+        #print(dictAvis[x]['transferMechanisms'])
         if dictAvis[x]['transferMechanisms']:
             i = 1
             for y in dictAvis[x]['transferMechanisms']:
                 outStr = outStr + y
-                print(i, len(dictAvis[x]['transferMechanisms']))
+                #print(i, len(dictAvis[x]['transferMechanisms']))
                 if (i < len(dictAvis[x]['transferMechanisms'])):
                     outStr += ', '
                     i += 1
@@ -158,7 +171,7 @@ dictCmps = dictCmp['cmps']
 # 'environments': ['Web', 'Native App (Mobile)', 'Native App (CTV)']
 # }
 
-# exercise: total number of vendor and list of vendors supporting Natice App (Mobile)
+# exercise: total number of vendor and list of vendors supporting Native App (Mobile)
 outStr = "List of CMPs supporting Native App (Mobile): \n"
 cnt = 0
 
