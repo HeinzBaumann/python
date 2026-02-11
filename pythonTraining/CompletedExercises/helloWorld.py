@@ -5,7 +5,7 @@
 print("Hello World!")
 
 # Using a variable
-str = "Hello Bruxelles!"
+str = "Hello Brussels!"
 print(str)
 
 i = 1

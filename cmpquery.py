@@ -16,7 +16,7 @@ import datetime
 import re
 
 # strCmp = "https://cmp-list.consensu.org/v2/cmp-list.json"
-strCmp = "https://cmp-list.consensu.org/v2/archives/cmp-list.2024-12-26.json" # end of 2024
+strCmp = "https://cmp-list.consensu.org/v2/archives/cmp-list.2025-12-25.json" # end of 2025
 cmpf = urlopen(strCmp).read()
 dictCmp = json.loads(cmpf)
 dictCmps = dictCmp['cmps']
@@ -34,8 +34,9 @@ cnt = 0
 for x in dictCmps:
     if 'deletedDate' in dictCmps[x]:
         cnt += 1
-print("Total operational CMPs:", len(dictCmps) - cnt)
 
+operationalCmp = len(dictCmps) - cnt
+print("Total operational CMPs:", operationalCmp)
 cnt = 0
 
 # operating environments
@@ -62,23 +63,23 @@ for x in dictCmps:
                 x1 = x
             if y == 'Native App (Mobile)':
                 cntMobile += 1
-                if x1 == x:
-                    cntWebMobile += 1
                 x2 = x
             if y == 'Native App (CTV)':
                 cntCTV += 1
-                if x1 == x and x2 == 0:
-                    cntWebCtv += 1
-                if x1 == x and x2 == x:
-                    cntWebMobileCtv += 1
-                if x1 != x and x2 == x:
-                    cntMobileCtv += 1
-                if x1 != x and x2 != x:
-                    cntCtvOnly += 1
                 x3 = x
-        if x3 == 0 and x2 == 0:
+        if x2 == x and x1 == x and x3 != x:
+            cntWebMobile += 1
+        if x1 == x and x2 != x and x3 == x:
+            cntWebCtv += 1
+        if x1 == x and x2 == x and x3 == x:
+            cntWebMobileCtv += 1
+        if x1 != x and x2 == x and x3 == x:
+            cntMobileCtv += 1
+        if x1 != x and x2 != x and x3 == x:
+            cntCtvOnly += 1
+        if x3 != x and x2 != x and x1 == x:
             cntWebOnly += 1
-        if x1 == 0 and x3 == 0:
+        if x1 != x and x3 != x and x2 == x:
             cntMobileOnly += 1
         x2 = 0
         x3 = 0
@@ -104,4 +105,15 @@ str = "CMP operating on Mobile only:"
 print(f"{str:<28} {cntMobileOnly}")
 str = "CMP operating on CTV only:"
 print(f"{str:<28} {cntCtvOnly}")
+
+## count commercial vs not commercial
+
+cnt = 0
+
+for x in dictCmps:
+    if ('isCommercial' in dictCmps[x]) and 'deletedDate' not in dictCmps[x]:
+        if dictCmps[x]['isCommercial'] == True:
+            cnt += 1
+print("Total commercial CMPs:", cnt)
+print("Total non commercial CMPs:", operationalCmp - cnt)
 print("Done with CMP data.")

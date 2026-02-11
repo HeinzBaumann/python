@@ -17,12 +17,14 @@ import datetime
 import re
 
 # strGvl = "https://vendor-list.consensu.org/v3/vendor-list.json"
-strAvi = "https://vendor-list.consensu.org/v2/additional-vendor-information-list.json"
-# strGvl = "https://vendor-list.consensu.org/v2/archives/vendor-list-v51.json" # use to test the tcfapi tests
-strGvl = "https://vendor-list.consensu.org/v3/archives/vendor-list-v86.json" # end of 2024
+# strAvi = "https://vendor-list.consensu.org/v2/additional-vendor-information-list.json"
+strAvi = "https://vendor-list.consensu.org/v2/archives/additional-vendor-information-list-v182.json" # end of 2025
+# strGvl = "https://vendor-list.consensu.org/v2/archives/vendor-list-v81.json" # use to test the tcfapi tests
+strGvl = "https://vendor-list.consensu.org/v3/archives/vendor-list-v139.json" # end of 2025
 gvlf = urlopen(strGvl).read()
 dictGvl = json.loads(gvlf)
 dictVendors = dictGvl['vendors']
+deletedVendorIds = []
 
 # Print the current date and time
 print("Date queries for GVL...")
@@ -38,54 +40,56 @@ print("Total numbers of vendors:", len(dictVendors))
 cnt = 0
 for x in dictVendors:
     if 'deletedDate' in dictVendors[x]:
+        deletedVendorIds.append(dictVendors[x]['id'])
         cnt += 1
+# print("Debug: ", deletedVendorIds, " ", len(deletedVendorIds))
 print("Total operational vendors:", len(dictVendors) - cnt)
 
-cnt = 0
-for x in dictVendors:
-    if len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
-     cnt += 1
+# cnt = 0
+# for x in dictVendors:
+#   if len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
+#     cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
-print("Total with special purposes only: ", cnt)
+# print("Total with special purposes only: ", cnt)
 
 # The number of Vendors that have declared at least one purpose based on LI + at least one SP 
 # (those will still have ambiguity in their signalling after the update)
 
-cnt = 0
-for x in dictVendors:
-    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
-     cnt += 1
+# cnt = 0
+# for x in dictVendors:
+#     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
+#      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
-print("Total with LI and special purposes: ", cnt)
+# print("Total with LI and special purposes: ", cnt)
 
 # The number of Vendors that have declared at least one purpose based on LI + at least one SP 
 # but no consent purpose (those will still have ambiguity in their signalling after the update)
 
-cnt = 0
-for x in dictVendors:
-    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
-     cnt += 1
+# cnt = 0
+# for x in dictVendors:
+#     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) > 0 and len(dictVendors[x]['specialPurposes']) > 0:
+#      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
-print("Total with LI and special purposes but no purpose consent: ", cnt)
+# print("Total with LI and special purposes but no purpose consent: ", cnt)
 
 # the number of Vendors that have declared only purposes based on consent (no LI) + at least one SP 
 # (those will have the signalling ambiguity removed with the upcoming update to the library)
 
-cnt = 0
-for x in dictVendors:
-    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) > 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
-     cnt += 1
+# cnt = 0
+# for x in dictVendors:
+#     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['purposes']) > 0 and len(dictVendors[x]['legIntPurposes']) == 0 and len(dictVendors[x]['specialPurposes']) > 0:
+#     cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
-print("Total with only purposes consent and special purposes: ", cnt)
+# print("Total with only purposes consent and special purposes: ", cnt)
 
 # the number of Vendors that have declared at least one SP 
 
-cnt = 0
-for x in dictVendors:
-    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['specialPurposes']) > 0:
-     cnt += 1
+# cnt = 0
+# for x in dictVendors:
+#     if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['specialPurposes']) > 0:
+#      cnt += 1
      # print("id: " + x +  " name: " + dictVendors[x]['name'])
-print("Total with special purposes: ", cnt)
+# print("Total with special purposes: ", cnt)
 
 # 
 # returns the number of vendors per purpose
@@ -128,7 +132,26 @@ for x in dictVendors:
 
 print("***Vendors that have not declared either Purpose 2,3,4 and 7: " + str(cnt))
 
+#
+# number of vendor and names of vendors that only declare SP (no purposed neiter consent nor LI)
+#
+
+# the number of Vendors that have declared at least one SP 
+
+cnt = 0
+print("***Vendor only declaring SPs")
+for x in dictVendors:
+    if 'deletedDate' not in dictVendors[x] and len(dictVendors[x]['specialPurposes']) > 0 \
+        and len(dictVendors[x]['purposes']) == 0 and len(dictVendors[x]['legIntPurposes']) == 0:
+        cnt += 1
+        print("id: " + x +  " name: " + dictVendors[x]['name'] + " '" + str(dictVendors[x]['purposes']) + "'" + " '" + str(dictVendors[x]['legIntPurposes']) + "'" + " '" + str(dictVendors[x]['specialPurposes']) + "'")
+print("Total with special purposes: ", cnt)
+
 print("Done with GVL data.")
+
+# Debug: to stop the script here
+# exit(0)
+#
 
 #
 # query somethings from the AVI JSON file
@@ -156,7 +179,10 @@ print(f"{str:<28} {len(dictAviVendors)}")
 unclassifiedList = []
 dictCountry = { "GERMANY" : 0 }
 cnt = 0
+
 for x in dictAviVendors:
+    if dictAviVendors[x]['id'] in deletedVendorIds:
+        continue
     addrStr = dictAviVendors[x]['legalAddress']
     addrList = addrStr.rsplit(';')
     i = len(addrList)
@@ -226,6 +252,8 @@ cntMobile = 0
 cntCTV = 0
 
 for x in dictAviVendors:
+    if dictAviVendors[x]['id'] in deletedVendorIds:
+        continue
     for y in dictAviVendors[x]['environments']:
         if y == 'Web':
             cntWeb += 1
